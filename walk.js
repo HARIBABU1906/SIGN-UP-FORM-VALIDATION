@@ -1,37 +1,43 @@
- document.getElementById('currentYear').textContent = new Date().getFullYear();
+document.addEventListener('DOMContentLoaded', function () {
+    'use strict'; // Enforce strict mode
 
-        document.addEventListener('scroll', () => {
-            const nav = document.getElementById('mainNav');
-            if (window.scrollY > 50) {
-                nav.classList.add('navbar-scrolled');
-            } else {
-                nav.classList.remove('navbar-scrolled');
-            }
-        });
-         (function(){
-      emailjs.init("YOUR_PUBLIC_KEY"); 
-    })();
+    const form = document.querySelector('.needs-validation');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
 
-    document.getElementById("contactForm").addEventListener("submit", function(event){
-      event.preventDefault();
+    // Function to check if passwords match
+    const checkPasswordMatch = () => {
+        if (passwordInput.value !== confirmPasswordInput.value) {
+            // Set a custom validation message if they don't match
+            confirmPasswordInput.setCustomValidity('Passwords do not match');
+        } else {
+            // Clear the custom validation message if they do match
+            confirmPasswordInput.setCustomValidity('');
+        }
+    };
 
-      emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
-        from_name: document.getElementById("name").value,
-        from_email: document.getElementById("email").value,
-        subject: document.getElementById("subject").value,
-        message: document.getElementById("message").value
-      })
-      .then(function(response) {
-         alert("✅ Message sent successfully! I'll reply soon at haribabu190604@gmail.com");
-         document.getElementById("contactForm").reset();
-      }, function(error) {
-         alert("❌ Failed to send message. Please try again later.");
-         console.error("EmailJS error:", error);
-      });
-    });
+    // 🚀 Real-time Validation (Error Handling)
+    // Add event listeners to check match as the user types
+    passwordInput.addEventListener('input', checkPasswordMatch);
+    confirmPasswordInput.addEventListener('input', checkPasswordMatch);
 
-        document.getElementById('contactForm').addEventListener('submit', function(event) {
+
+    // 🚀 Form Submission Handler
+    form.addEventListener('submit', function (event) {
+        
+        // 1. Perform final check for password match before checking general validity
+        checkPasswordMatch();
+
+        // 2. Check general form validity (including HTML5 required, minlength, etc.)
+        if (!form.checkValidity()) {
+            // Prevent form submission if validation fails (Error Handling)
             event.preventDefault();
-            alert('Message Sent! (Replace this with actual submission logic)');
-            this.reset();
-        });
+            event.stopPropagation();
+        }
+
+        // 3. Apply Bootstrap's visual feedback classes
+        // This line adds the 'was-validated' class which displays the feedback messages
+        form.classList.add('was-validated');
+    }, false);
+
+});
