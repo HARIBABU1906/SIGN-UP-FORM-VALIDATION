@@ -1,25 +1,38 @@
 
 body {
-    background-color: #f8f9fa; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background: linear-gradient(to right, #ff416c, #ff4b2b, #ffc837); 
     min-height: 100vh;
-    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.card {
-    border: none;
-    border-radius: 1rem;
+/* Styling the form container */
+.form-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
 }
 
-.card-title {
-    color: #0d6efd;
-    font-weight: 600;
+/* Customizing invalid feedback color to match the image's red text */
+.invalid-feedback {
+    color: #dc3545; /* Bootstrap's standard danger color */
+    font-size: 0.875em;
+    margin-top: 0.25rem;
 }
 
-.form-control:focus {
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+/* Customizing checkbox label for the required text */
+.form-check-label span.text-danger {
+    margin-left: 5px; /* Spacing out the error message in the label */
+}
+
+/* Custom button styles to match a flat look */
+.btn-primary {
+    background-color: #0d6efd; 
     border-color: #0d6efd;
 }
 
+.btn-secondary {
+    background-color: #6c757d; 
+    border-color: #6c757d;
+}
